@@ -20,6 +20,9 @@ namespace YueMediaPlayer
             //AudioPlayer.Get().audioPlayQueue.Add("01. 愛し子よ.mp3");
             AudioPlayer.Get().SetVolumn(0.5f);
             trackBar_audioPos.Value = 50;
+            this.Text = "快乐音乐播放器";
+
+            AudioPlayer.Get().OnAutoToggleAudio = AutoToggleAudioCb;
 
             positionTimer = new System.Windows.Forms.Timer();
             positionTimer.Interval = 500;
@@ -36,6 +39,12 @@ namespace YueMediaPlayer
                 }
             };
             
+        }
+
+        private void AutoToggleAudioCb(int id, string filename)
+        {
+            this.Text = "快乐音乐播放器        " + filename;
+            listView_music.Items[id - 1].Selected = true;
         }
 
         /// <summary>
@@ -95,7 +104,7 @@ namespace YueMediaPlayer
             ListViewItem listViewItem = listView_music.SelectedItems[0];
             int id = Convert.ToInt32(listViewItem.Text);
             AudioPlayer.Get().Play(id);
-            
+            AutoToggleAudioCb(id, listViewItem.SubItems[1].Text);
         }
 
         private void trackBar_audioPos_ValueChanged(object sender, EventArgs e)

@@ -43,6 +43,10 @@ namespace YueMediaPlayer
 
         public bool bAutoPlay;
 
+        public delegate void OnAutoToggleAudioCb(int id, string filename);
+
+        public OnAutoToggleAudioCb OnAutoToggleAudio;
+
         //private SampleChannel sampleChannel;
         public static AudioPlayer Get()
         {
@@ -59,6 +63,7 @@ namespace YueMediaPlayer
                 StartPlayAudio = null;
                 bAutoPlay = true;
                 StartPlayId = 0;
+                OnAutoToggleAudio = null;
 
                 //directSound = new DirectSound();
 
@@ -114,6 +119,7 @@ namespace YueMediaPlayer
                 AudioPlayQueue.AudioFileAttribute audioFile = audioPlayQueue.Find(StartPlayId);
                 if (audioFile != null)
                 {
+                    OnAutoToggleAudio(StartPlayId, audioFile.FileName);
                     audioFile.AudioFileReader.Position = 0;
                     outputDevice.Init(audioFile.AudioFileReader);
                     outputDevice.Play();
