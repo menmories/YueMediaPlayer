@@ -64,7 +64,7 @@ namespace YueMediaPlayer
         private void OpenAudioFiles()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "mp3 files|*.mp3|wav files|*.wav";
+            openFileDialog.Filter = "All files|*.*|mp3 files|*.mp3|wav files|*.wav";
             openFileDialog.Title = "音频文件";
             openFileDialog.Multiselect = true;
             DialogResult result = openFileDialog.ShowDialog();

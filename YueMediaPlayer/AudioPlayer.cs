@@ -95,7 +95,7 @@ namespace YueMediaPlayer
 
         private void OnPlaybackStopped(object sender, StoppedEventArgs args)
         {
-            if(bHandStartPlay)
+            if (bHandStartPlay)
             {
                 bHandStartPlay = false;
                 StartPlayAudio.Position = 0;
@@ -106,18 +106,19 @@ namespace YueMediaPlayer
             if (bAutoPlay)
             {
                 StartPlayId++;
-                if(StartPlayId > audioPlayQueue.GetCount())
+                if (StartPlayId > audioPlayQueue.GetCount())
                 {
                     StartPlayId = 1;
                 }
+                StartPlayAudio.Position = 0;
                 AudioPlayQueue.AudioFileAttribute audioFile = audioPlayQueue.Find(StartPlayId);
                 if (audioFile != null)
                 {
-                    StartPlayAudio.Position = 0;
+                    audioFile.AudioFileReader.Position = 0;
                     outputDevice.Init(audioFile.AudioFileReader);
                     outputDevice.Play();
                 }
-                
+
             }
         }
         private void OutputDevice_PlaybackStopped(object sender, StoppedEventArgs e)
