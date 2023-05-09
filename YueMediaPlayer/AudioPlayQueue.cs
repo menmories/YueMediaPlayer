@@ -10,20 +10,36 @@ namespace YueMediaPlayer
 {
     public class AudioPlayQueue
     {
-        private Dictionary<int, AudioFileReader> AudioFiles;
+        public class AudioFileAttribute
+        {
+            public AudioFileReader AudioFileReader
+            {
+                set;get;
+            }
+
+            public string FileName;
+
+            public string FullPath;
+        }
+
+        private Dictionary<int, AudioFileAttribute> AudioFiles;
 
         public AudioPlayQueue() 
         {
-            AudioFiles = new Dictionary<int, AudioFileReader>();
+            AudioFiles = new Dictionary<int, AudioFileAttribute>();
         }
 
-        public int Add(string path)
+        public int Add(string fileName,string path)
         {
             try
             {
-                AudioFileReader audioFile = new AudioFileReader(path);
+                AudioFileAttribute attribute = new AudioFileAttribute();
+                attribute.AudioFileReader = new AudioFileReader(path);
+                attribute.FileName = fileName;
+                attribute.FullPath = path;
+
                 int id = AudioFiles.Count + 1;
-                AudioFiles.Add(id, audioFile);
+                AudioFiles.Add(id, attribute);
                 return id;
             }
             catch(Exception e)
@@ -32,11 +48,16 @@ namespace YueMediaPlayer
             }
         }
 
-        public AudioFileReader Find(int id)
+        public int GetCount()
+        {
+            return AudioFiles.Count;
+        }
+
+        public AudioFileAttribute Find(int id)
         {
             try
             {
-                AudioFileReader audioFile = null;
+                AudioFileAttribute audioFile = null;
                 AudioFiles.TryGetValue(id, out audioFile);
                 return audioFile;
             }

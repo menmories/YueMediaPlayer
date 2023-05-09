@@ -34,7 +34,7 @@
             this.打开文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开文件夹ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助F1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listView_music = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -76,14 +76,14 @@
             // 打开文件ToolStripMenuItem
             // 
             this.打开文件ToolStripMenuItem.Name = "打开文件ToolStripMenuItem";
-            this.打开文件ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.打开文件ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.打开文件ToolStripMenuItem.Text = "打开文件";
             this.打开文件ToolStripMenuItem.Click += new System.EventHandler(this.menu_openAudioFiles);
             // 
             // 打开文件夹ToolStripMenuItem
             // 
             this.打开文件夹ToolStripMenuItem.Name = "打开文件夹ToolStripMenuItem";
-            this.打开文件夹ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.打开文件夹ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.打开文件夹ToolStripMenuItem.Text = "打开文件夹";
             // 
             // 帮助F1ToolStripMenuItem
@@ -92,31 +92,37 @@
             this.帮助F1ToolStripMenuItem.Size = new System.Drawing.Size(65, 21);
             this.帮助F1ToolStripMenuItem.Text = "帮助(F1)";
             // 
-            // listView1
+            // listView_music
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listView_music.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(12, 28);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(776, 342);
-            this.listView1.TabIndex = 2;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView_music.FullRowSelect = true;
+            this.listView_music.HideSelection = false;
+            this.listView_music.Location = new System.Drawing.Point(12, 28);
+            this.listView_music.MultiSelect = false;
+            this.listView_music.Name = "listView_music";
+            this.listView_music.Size = new System.Drawing.Size(776, 342);
+            this.listView_music.TabIndex = 2;
+            this.listView_music.UseCompatibleStateImageBehavior = false;
+            this.listView_music.View = System.Windows.Forms.View.Details;
+            this.listView_music.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_music_MouseDoubleClick);
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "ID";
+            this.columnHeader1.Width = 125;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "曲名";
+            this.columnHeader2.Width = 320;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "路径";
+            this.columnHeader3.Width = 100;
             // 
             // trackBar_audioPos
             // 
@@ -133,7 +139,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.trackBar_audioPos);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.listView_music);
             this.Controls.Add(this.button_playMusic);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -156,7 +162,7 @@
         private System.Windows.Forms.ToolStripMenuItem 打开文件ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 打开文件夹ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 帮助F1ToolStripMenuItem;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listView_music;
         private System.Windows.Forms.TrackBar trackBar_audioPos;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;

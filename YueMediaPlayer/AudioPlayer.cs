@@ -35,6 +35,14 @@ namespace YueMediaPlayer
 
         public AudioPlayQueue audioPlayQueue { get; }
 
+        private bool bHandStartPlay;        //是手动Play
+
+        private AudioFileReader StartPlayAudio;
+
+        private int StartPlayId;
+
+        public bool bAutoPlay;
+
         //private SampleChannel sampleChannel;
         public static AudioPlayer Get()
         {
@@ -47,8 +55,10 @@ namespace YueMediaPlayer
                 audioPlayQueue = new AudioPlayQueue();
                 outputDevice = new WaveOutEvent();
                 outputDevice.PlaybackStopped += OnPlaybackStopped;
-
-                
+                bHandStartPlay = false;
+                StartPlayAudio = null;
+                bAutoPlay = true;
+                StartPlayId = 0;
 
                 //directSound = new DirectSound();
 
@@ -85,11 +95,39 @@ namespace YueMediaPlayer
 
         private void OnPlaybackStopped(object sender, StoppedEventArgs args)
         {
-
+            if(bHandStartPlay)
+            {
+                bHandStartPlay = false;
+                StartPlayAudio.Position = 0;
+                outputDevice.Init(StartPlayAudio);
+                outputDevice.Play();
+                return;
+            }
+            if (bAutoPlay)
+            {
+                StartPlayId++;
+                if(StartPlayId > audioPlayQueue.GetCount())
+                {
+                    StartPlayId = 1;
+                }
+                AudioPlayQueue.AudioFileAttribute audioFile = audioPlayQueue.Find(StartPlayId);
+                if (audioFile != null)
+                {
+                    StartPlayAudio.Position = 0;
+                    outputDevice.Init(audioFile.AudioFileReader);
+                    outputDevice.Play();
+                }
+                
+            }
         }
         private void OutputDevice_PlaybackStopped(object sender, StoppedEventArgs e)
         {
             //throw new NotImplementedException();
+            //outputDevice.Dispose();
+
+            StartPlayAudio.Position = 0;
+            outputDevice.Init(StartPlayAudio);
+            outputDevice.Play();
         }
 
         public void Play()
@@ -97,23 +135,32 @@ namespace YueMediaPlayer
             Play(1);
         }
 
-        public int Play(int id)
+        public void Play(int id)
         {
             try
             {
-                AudioFileReader audioFile = audioPlayQueue.Find(id);
-
-                //sampleChannel = new SampleChannel(new SampleToWaveProvider(audioFile));
-
-                outputDevice.Init(audioFile);
-                outputDevice.Play();
-                return (int)audioFile.TotalTime.TotalSeconds;
+                AudioPlayQueue.AudioFileAttribute audioFile = audioPlayQueue.Find(id);
+                if(audioFile != null)
+                {
+                    StartPlayId = id;
+                    StartPlayAudio = audioFile.AudioFileReader;
+                    if (IsPlaying())
+                    {
+                        bHandStartPlay = true;
+                        outputDevice.Stop();
+                    }
+                    else
+                    {
+                        StartPlayAudio.Position = 0;
+                        outputDevice.Init(StartPlayAudio);
+                        outputDevice.Play();
+                    }
+                }
             }
             catch(Exception e)
             {
                 throw e;
             }
-            
         }
 
         public void Stop()
@@ -124,6 +171,11 @@ namespace YueMediaPlayer
         public long GetPosition()
         {
             return outputDevice.GetPosition();
+        }
+
+        public void SetVolumn(float volumn)
+        {
+            outputDevice.Volume = volumn;
         }
 
         public bool IsPlaying()
