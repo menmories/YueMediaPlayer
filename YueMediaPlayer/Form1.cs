@@ -19,6 +19,8 @@ namespace YueMediaPlayer
 
             //AudioPlayer.Get().audioPlayQueue.Add("01. 愛し子よ.mp3");
             AudioPlayer.Get().SetVolumn(0.5f);
+            trackBar_audioPos.Value = 50;
+
             positionTimer = new System.Windows.Forms.Timer();
             positionTimer.Interval = 500;
             positionTimer.Tick += (object sender, EventArgs args) =>
@@ -50,7 +52,8 @@ namespace YueMediaPlayer
 
         private void trackBar_audioPos_MouseCaptureChanged(object sender, EventArgs e)
         {
-
+            //float value = trackBar_audioPos.Value / 100.0f;
+            //AudioPlayer.Get().SetVolumn(value);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -93,6 +96,18 @@ namespace YueMediaPlayer
             int id = Convert.ToInt32(listViewItem.Text);
             AudioPlayer.Get().Play(id);
             
+        }
+
+        private void trackBar_audioPos_ValueChanged(object sender, EventArgs e)
+        {
+            float value = trackBar_audioPos.Value / 100.0f;
+            AudioPlayer.Get().SetVolumn(value);
+            label_volumn.Text = trackBar_audioPos.Value.ToString() + "%";
+        }
+
+        private void button_pause_Click(object sender, EventArgs e)
+        {
+            AudioPlayer.Get().Pause();
         }
     }
 }

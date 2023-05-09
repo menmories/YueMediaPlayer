@@ -39,6 +39,9 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.trackBar_audioPos = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label_volumn = new System.Windows.Forms.Label();
+            this.button_pause = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_audioPos)).BeginInit();
             this.SuspendLayout();
@@ -126,18 +129,50 @@
             // 
             // trackBar_audioPos
             // 
-            this.trackBar_audioPos.Location = new System.Drawing.Point(12, 402);
+            this.trackBar_audioPos.Location = new System.Drawing.Point(49, 415);
             this.trackBar_audioPos.Maximum = 100;
             this.trackBar_audioPos.Name = "trackBar_audioPos";
-            this.trackBar_audioPos.Size = new System.Drawing.Size(294, 45);
+            this.trackBar_audioPos.Size = new System.Drawing.Size(273, 45);
             this.trackBar_audioPos.TabIndex = 4;
+            this.trackBar_audioPos.ValueChanged += new System.EventHandler(this.trackBar_audioPos_ValueChanged);
             this.trackBar_audioPos.MouseCaptureChanged += new System.EventHandler(this.trackBar_audioPos_MouseCaptureChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 415);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "音量：";
+            // 
+            // label_volumn
+            // 
+            this.label_volumn.AutoSize = true;
+            this.label_volumn.Location = new System.Drawing.Point(329, 425);
+            this.label_volumn.Name = "label_volumn";
+            this.label_volumn.Size = new System.Drawing.Size(23, 12);
+            this.label_volumn.TabIndex = 6;
+            this.label_volumn.Text = "50%";
+            // 
+            // button_pause
+            // 
+            this.button_pause.Location = new System.Drawing.Point(632, 415);
+            this.button_pause.Name = "button_pause";
+            this.button_pause.Size = new System.Drawing.Size(75, 23);
+            this.button_pause.TabIndex = 7;
+            this.button_pause.Text = "暂停";
+            this.button_pause.UseVisualStyleBackColor = true;
+            this.button_pause.Click += new System.EventHandler(this.button_pause_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button_pause);
+            this.Controls.Add(this.label_volumn);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.trackBar_audioPos);
             this.Controls.Add(this.listView_music);
             this.Controls.Add(this.button_playMusic);
@@ -167,6 +202,9 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label_volumn;
+        private System.Windows.Forms.Button button_pause;
     }
 }
 

@@ -139,6 +139,12 @@ namespace YueMediaPlayer
         {
             try
             {
+                if(outputDevice.PlaybackState == PlaybackState.Paused)
+                {
+                    outputDevice.Play();
+                    return;
+                }
+
                 AudioPlayQueue.AudioFileAttribute audioFile = audioPlayQueue.Find(id);
                 if(audioFile != null)
                 {
